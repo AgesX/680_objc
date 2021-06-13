@@ -685,7 +685,17 @@ map_images_nolock(enum dyld_image_states state, uint32_t infoCount,
         sel_init(wantsGC, selrefCount);
         arr_init();
     }
-
+    /*
+     category被附加到类上面是在 map_2_images 的时候发生的，
+     在new-ABI的标准下，
+     
+     
+     
+     _objc_init里面的调用的 map_2_images
+     最终会调用objc-runtime-new.mm里面的
+     _read_images方法
+     
+     */
     _read_images(hList, hCount);
 
     firstTime = NO;
@@ -807,9 +817,32 @@ static void static_init()
 * New ABI: called by libSystem BEFORE library initialization time
 **********************************************************************/
 
+
+
+
 #if !__OBJC2__
 static __attribute__((constructor))
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  对于 OC 运行时，入口方法如下
+
+
+
+
+
+
 void _objc_init(void)
 {
     static bool initialized = false;
@@ -825,6 +858,24 @@ void _objc_init(void)
     
     // Register for unmap first, in case some +load unmaps something
     _dyld_register_func_for_remove_image(&unmap_image);
+    
+    
+    
+    
+    /*
+     category被附加到类上面是在 map_2_images 的时候发生的，
+     在new-ABI的标准下，
+     
+     
+     
+     _objc_init里面的调用的 map_2_images
+     最终会调用objc-runtime-new.mm里面的
+     _read_images方法
+     
+     */
+    
+    
+    
     dyld_register_image_state_change_handler(dyld_image_state_bound,
                                              1/*batch*/, &map_2_images);
     dyld_register_image_state_change_handler(dyld_image_state_dependents_initialized, 0/*not batch*/, &load_images);

@@ -2173,6 +2173,20 @@ map_2_images(enum dyld_image_states state, uint32_t infoCount,
              const struct dyld_image_info infoList[])
 {
     rwlock_writer_t lock(runtimeLock);
+    
+    /*
+     category被附加到类上面是在 map_2_images 的时候发生的，
+     在new-ABI的标准下，
+     
+     
+     
+     _objc_init里面的调用的 map_2_images
+     最终会调用objc-runtime-new.mm里面的
+     _read_images方法
+     
+     */
+    
+    
     return map_images_nolock(state, infoCount, infoList);
 }
 
@@ -2215,6 +2229,26 @@ load_images(enum dyld_image_states state, uint32_t infoCount,
 
     return nil;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -2427,6 +2461,19 @@ readProtocol(protocol_t *newproto, Class protocol_class,
 extern "C" int dyld_get_program_sdk_version();
 #define DYLD_MACOSX_VERSION_10_11 MAC_OS_X_VERSION_10_11
 
+
+
+/*
+ category被附加到类上面是在 map_2_images 的时候发生的，
+ 在new-ABI的标准下，
+ 
+ 
+ 
+ _objc_init里面的调用的 map_2_images
+ 最终会调用objc-runtime-new.mm里面的
+ _read_images方法
+ 
+ */
 void _read_images(header_info **hList, uint32_t hCount)
 {
     header_info *hi;
@@ -2807,6 +2854,25 @@ void _read_images(header_info **hList, uint32_t hCount)
 
 #undef EACH_HEADER
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
