@@ -574,6 +574,15 @@ prepareMethodLists(Class cls, method_list_t **addedLists, int addedCount,
 // Attach method lists and properties and protocols from categories to a class.
 // Assumes the categories in cats are all loaded and sorted by load order, 
 // oldest categories first.
+
+
+
+
+
+
+
+
+
 static void 
 attachCategories(Class cls, category_list *cats, bool flush_caches)
 {
@@ -639,6 +648,22 @@ attachCategories(Class cls, category_list *cats, bool flush_caches)
      */
     // 将含有mcount个元素的mcount实例方法列表拼接到宿主类的对应方法列表中。
     // 即分类方法添加到了宿主类中
+    
+    
+    
+    
+/*
+ 
+ 
+ attachCategories 做的工作相对比较简单，
+ 
+ 它只是把所有 category 的实例方法列表拼成了一个大的实例方法列表，
+ 
+ 然后转交给了 attachLists 方法
+ 
+ */
+    
+    
     rw->methods.attachLists(mlists, mcount);
     free(mlists);
     if (flush_caches  &&  mcount > 0) flushCaches(cls);
@@ -649,6 +674,24 @@ attachCategories(Class cls, category_list *cats, bool flush_caches)
     rw->protocols.attachLists(protolists, protocount);
     free(protolists);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -747,6 +790,9 @@ static void remethodizeClass(Class cls)
     // Re-methodizing: check for more categories
     // 判断cls中未完成整合的所有分类
     if ((cats = unattachedCategoriesForClass(cls, false/*not realizing*/))) {
+        
+        // 而对于添加类的实例方法而言，又会去调用 attachCategory 这个方法
+        
         if (PrintConnecting) {
             _objc_inform("CLASS: attaching categories to class '%s' %s", 
                          cls->nameForLogging(), isMeta ? "(meta)" : "");

@@ -676,6 +676,16 @@ class list_array_tt {
           分类A中的方法列表      分类B中的方法列表       分类C中的方法列表
      addedCount：举例 3
      */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     void attachLists(List* const * addedLists, uint32_t addedCount) {
         if (addedCount == 0) return;
         if (hasArray()) {
@@ -691,6 +701,52 @@ class list_array_tt {
              内存移动
              [[], [], [], [原有的第一个元素], [原有的第二个元素]]
              */
+            
+            
+            
+            
+            
+            
+/*
+ 
+ 
+ 
+ 1，
+ category的方法没有“完全替换掉”原来类已经有的方法，
+ 也就是说如果category和原来类都有methodA，
+ 那么category附加完成之后，
+ 类的方法列表里会有两个methodA
+ 
+ 
+ 
+ 
+ 
+ 2，
+ category的方法被放到了新方法列表的前面，
+ 而原来类的方法被放到了新方法列表的后面，
+ 这也就是我们平常所说的category的方法会“覆盖”掉原来类的同名方法，
+ 这是因为运行时在查找方法的时候是顺着方法列表的顺序查找的，
+ 它只要一找到对应名字的方法，
+ 就会罢休^_^，
+ 殊不知后面可能还有一样名字的方法。
+ 
+ 
+ 
+ */
+            
+            
+            /*
+             
+             C 库函数 void *memmove(void *str1, const void *str2, size_t n)
+             
+             从 str2 复制 n 个字符到 str1
+             
+             memmove 也是 copy
+            */
+            
+            // 原来的老方法，转移到后面了
+            
+            
             memmove(array()->lists + addedCount, array()->lists,
                     oldCount * sizeof(array()->lists[0]));
             /*
@@ -706,6 +762,17 @@ class list_array_tt {
              宿主类的方法仍然存在，但是由于消息函数方法查找过程中根据选择器名称查找，一旦找到对应的实现就返回。
              由于分类方法位于宿主类的方法数组靠前的位置，如果分类中有和宿主类同名的方法，那么分类的方法会被优先实现。
              */
+            
+            
+            
+            /*
+             C 库函数 void *memcpy(void *str1, const void *str2, size_t n)
+             
+             从存储区 str2 复制 n 个字节到存储区 str1
+             
+             */
+            
+            // 新添加的分类方法，移到前面了
             memcpy(array()->lists, addedLists,
                    addedCount * sizeof(array()->lists[0]));
         }
@@ -725,6 +792,31 @@ class list_array_tt {
                    addedCount * sizeof(array()->lists[0]));
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     void tryFree() {
         if (hasArray()) {
