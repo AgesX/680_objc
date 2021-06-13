@@ -6617,6 +6617,11 @@ object_copyFromZone(id oldObj, size_t extraBytes, void *zone)
 * Be warned that GC DOES NOT CALL THIS. If you edit this, also edit finalize.
 * CoreFoundation and other clients do call this under GC.
 **********************************************************************/
+
+
+//      对象的销毁逻辑里面
+
+
 void *objc_destructInstance(id obj) 
 {
     if (obj) {
@@ -6627,6 +6632,10 @@ void *objc_destructInstance(id obj)
 
         // This order is important.
         if (cxx) object_cxxDestruct(obj);
+        
+        //  runtime 的销毁对象函数 objc_destructInstance  里面
+        // 会判断这个对象有没有关联对象，
+        // 如果有， 会调用_object_remove_assocations  做关联对象的清理工作。
         if (assoc) _object_remove_assocations(obj);
         if (dealloc) obj->clearDeallocating();
     }

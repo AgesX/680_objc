@@ -190,6 +190,44 @@ using namespace objc_references_support;
 // Allocating an instance acquires the lock, and calling its assocations() method
 // lazily allocates it.
 
+
+
+/*
+ 
+ 可以看到所有的关联对象都由AssociationsManager管理，
+ 
+ 
+ AssociationsManager定义如下：
+ 
+ 
+ */
+
+
+
+
+
+/*
+ 
+ 
+ 
+ AssociationsManager 里面是
+ 由一个静态AssociationsHashMap来存储所有的关联对象的。
+ 
+ 
+ 
+ 这相当于把所有对象的关联对象都存在一个全局map里面。
+ 
+ 而map的的key是这个对象的指针地址
+ 
+ （任意两个不同对象的指针地址一定是不同的），
+ 
+ 而这个map的value又是另外一个AssociationsHashMap，
+ 里面保存了关联对象的 kv 对
+ 
+ 
+ 
+ */
+
 class AssociationsManager {
     static spinlock_t _lock;
     static AssociationsHashMap *_map;               // associative references:  object pointer -> PtrPtrHashMap.
@@ -203,6 +241,12 @@ public:
         return *_map;
     }
 };
+
+
+
+
+
+
 
 spinlock_t AssociationsManager::_lock;
 AssociationsHashMap *AssociationsManager::_map = NULL;
@@ -270,6 +314,27 @@ struct ReleaseValue {
  value  -> 要关联的值
  policy -> 关联策略，将key和value关联到object
  */
+
+
+
+
+
+
+
+
+/*
+ 
+ 但是关联对象又是存在什么地方呢？
+ 如何存储？
+ 对象销毁时候如何处理关联对象呢？
+ 
+ 
+ */
+
+
+
+
+
 void _object_set_associative_reference(id object, void *key, id value, uintptr_t policy) {
     // retain the new value (if any) outside the lock.
     ObjcAssociation old_association(0, nil);
