@@ -322,6 +322,11 @@ static NXMapTable *unattachedCategories(void)
 * Records an unattached category.
 * Locking: runtimeLock must be held by the caller.
 **********************************************************************/
+
+
+// addUnattachedCategoryForClass 把类和category做一个关联映射，
+
+
 static void addUnattachedCategoryForClass(category_t *cat, Class cls, 
                                           header_info *catHeader)
 {
@@ -2470,10 +2475,12 @@ extern "C" int dyld_get_program_sdk_version();
  
  
  _objc_init里面的调用的 map_2_images
+ 
  最终会调用objc-runtime-new.mm里面的
- _read_images方法
+ _read_images 方法
  
  */
+
 void _read_images(header_info **hList, uint32_t hCount)
 {
     header_info *hi;
@@ -2725,8 +2732,52 @@ void _read_images(header_info **hList, uint32_t hCount)
 
     ts.log("IMAGE TIMES: realize future classes");
 
+    
+    
+    
+    /*
+     category被附加到类上面是在 map_2_images 的时候发生的，
+     在new-ABI的标准下，
+     
+     
+     
+     _objc_init里面的调用的 map_2_images
+     
+     最终会调用objc-runtime-new.mm里面的
+     _read_images 方法
+     
+     
+     
+     而在_read_images方法的结尾，有以下的代码片段：
+
+
+     
+     */
+
+    
+    
+    
     // Discover categories. 
     for (EACH_HEADER) {
+        
+        
+        /*
+         
+         
+         首先，我们拿到的catlist就是上节中讲到的编译器为我们准备的category_t数组，
+         
+
+         略去PrintConnecting这个用于log的东西，这段代码很容易理解：
+
+         
+         
+         1)、把category的实例方法、协议以及属性添加到类上
+         2)、把category的类方法和协议添加到类的metaclass上
+         
+         
+         */
+        
+        
         category_t **catlist = 
             _getObjc2CategoryList(hi, &count);
         for (i = 0; i < count; i++) {
@@ -2753,6 +2804,15 @@ void _read_images(header_info **hList, uint32_t hCount)
             if (cat->instanceMethods ||  cat->protocols  
                 ||  cat->instanceProperties) 
             {
+                
+/*
+ addUnattachedCategoryForClass 只是把类和category做一个关联映射，
+ 
+ 而remethodizeClass 真正去处理添加事宜
+ 
+ */
+                
+                
                 addUnattachedCategoryForClass(cat, cls, hi);
                 if (cls->isRealized()) {
                     remethodizeClass(cls);
