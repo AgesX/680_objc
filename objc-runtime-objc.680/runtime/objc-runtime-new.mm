@@ -4915,7 +4915,16 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
 
     curClass = cls;
     while ((curClass = curClass->superclass)) {
-        // Superclass cache.
+
+        // Superclass cache.       // LG 所谓的 ，  缓存 - look up IMP - 慢速查找 -
+        
+        
+        //  cache_getImp 是汇编写的
+        //   从 C++ 代码，走汇编代码
+        //       he he
+        //       根本没有递归
+        //       LG 烂仔， 讲课的套路
+        
         imp = cache_getImp(curClass, sel);
         if (imp) {
             if (imp != (IMP)_objc_msgForward_impcache) {
