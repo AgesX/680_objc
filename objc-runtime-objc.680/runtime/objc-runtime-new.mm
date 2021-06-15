@@ -4925,6 +4925,9 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
         //       根本没有递归
         //       LG 烂仔， 讲课的套路
         
+        
+        
+        // 这个地方，根本没有存在递归
         imp = cache_getImp(curClass, sel);
         if (imp) {
             if (imp != (IMP)_objc_msgForward_impcache) {

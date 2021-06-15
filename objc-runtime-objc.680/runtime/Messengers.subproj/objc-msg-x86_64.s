@@ -426,6 +426,12 @@ LExit$0:
 .endmacro
 
 
+
+
+
+
+//    _cache_getImp 调用，传的参数是 GETIMP
+
 .macro	CacheLookup
 .if $0 != STRET  &&  $0 != SUPER_STRET  &&  $0 != SUPER2_STRET
 	movq	%a2, %r10		// r10 = _cmd
@@ -646,11 +652,31 @@ LNilTestSlow:
  * If not found, returns NULL.
  ********************************************************************/
 
+
+
+
 	STATIC_ENTRY _cache_getImp
 
 // do lookup
 	movq	%a1, %r11		// move class to r11 for CacheLookup
 	CacheLookup GETIMP		// returns IMP on success
+
+
+
+
+//   查询 IMP
+
+
+
+
+
+
+
+
+
+
+
+
 
 LCacheMiss:
 // cache miss, return nil
