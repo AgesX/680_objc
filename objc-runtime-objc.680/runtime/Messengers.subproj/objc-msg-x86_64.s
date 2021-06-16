@@ -380,6 +380,10 @@ LExit$0:
 	// r10 = found bucket
 	
 .if $0 == GETIMP
+
+// 此时走这个逻辑
+
+
 	movq	8(%r10), %rax		// return imp
 	leaq	__objc_msgSend_uncached_impcache(%rip), %r11
 	cmpq	%rax, %r11
@@ -449,6 +453,8 @@ LExit$0:
 .endif
 	jne 	1f			//     scan more
 	// CacheHit must always be preceded by a not-taken `jne` instruction
+
+	// 可能走到这里
 	CacheHit $0			// call or return imp
 
 1:

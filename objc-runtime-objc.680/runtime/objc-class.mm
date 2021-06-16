@@ -569,18 +569,38 @@ void _class_resolveMethod(Class cls, SEL sel, id inst)
     if (! cls->isMetaClass()) {
         // try [cls resolveInstanceMethod:sel]
         _class_resolveInstanceMethod(cls, sel, inst);
+        
+        
+        // 对象方法找不到，在类里面，动态处理
     } 
     else {
+        // 类方法找不到，在元类 meta 里面，动态处理
+        
+        
         // try [nonMetaClass resolveClassMethod:sel]
         // and [cls resolveInstanceMethod:sel]
-        _class_resolveClassMethod(cls, sel, inst);
+        _class_resolveClassMethod(cls, sel, inst);          // 处理元类
         if (!lookUpImpOrNil(cls, sel, inst, 
                             NO/*initialize*/, YES/*cache*/, NO/*resolver*/)) 
         {
-            _class_resolveInstanceMethod(cls, sel, inst);
+            
+            // 为什么会有这个逻辑？ 
+            
+            _class_resolveInstanceMethod(cls, sel, inst);   // 处理最后的那个类， NSObject
+            // NSObject 元类，继承自  NSObject 类
+            
+            
+            // 调用类方法的时候，如果一直找不到，最后会调用 NSObject 的实例方法
         }
     }
 }
+
+
+
+
+
+
+
 
 
 /***********************************************************************

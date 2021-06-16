@@ -4929,6 +4929,9 @@ IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
         
         // 这个地方，根本没有存在递归
         imp = cache_getImp(curClass, sel);
+        // 查一下当前类的缓存，方法列表
+        // 没有走递归，溯源父类
+        
         if (imp) {
             if (imp != (IMP)_objc_msgForward_impcache) {
                 // Found the method in a superclass. Cache it in this class.
