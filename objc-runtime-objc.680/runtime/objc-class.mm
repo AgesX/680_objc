@@ -579,21 +579,33 @@ void _class_resolveMethod(Class cls, SEL sel, id inst)
         
         // try [nonMetaClass resolveClassMethod:sel]
         // and [cls resolveInstanceMethod:sel]
+        // 处理类方法
         _class_resolveClassMethod(cls, sel, inst);          // 处理元类
         if (!lookUpImpOrNil(cls, sel, inst, 
                             NO/*initialize*/, YES/*cache*/, NO/*resolver*/)) 
         {
             
             // 为什么会有这个逻辑？ 
-            
+            // 处理实例方法
             _class_resolveInstanceMethod(cls, sel, inst);   // 处理最后的那个类， NSObject
             // NSObject 元类，继承自  NSObject 类
             
             
             // 调用类方法的时候，如果一直找不到，最后会调用 NSObject 的实例方法
+            
+            
+            
+            // 就像调用类方法的时候，最后会调用到 NSObject 的对象方法
         }
     }
 }
+
+
+
+
+
+
+
 
 
 
