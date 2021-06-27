@@ -326,6 +326,18 @@ void environ_init(void)
             _objc_inform("OBJC_PRINT_OPTIONS is set");
         }
 
+        
+        
+        
+        
+        
+        
+        
+        // 实际，打印的地方
+        
+        
+        
+        
         for (size_t i = 0; i < sizeof(Settings)/sizeof(Settings[0]); i++) {
             const option_t *opt = &Settings[i];            
             if (PrintHelp) _objc_inform("%s: %s", opt->env, opt->help);
@@ -333,6 +345,13 @@ void environ_init(void)
         }
     }
 }
+
+
+
+
+
+
+
 
 
 
@@ -443,6 +462,23 @@ void _objc_pthread_destroyspecific(void *arg)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+// 初始化，本地线程池
+
+
+
+
+
+
 void tls_init(void)
 {
 #if SUPPORT_DIRECT_THREAD_KEYS
@@ -452,6 +488,12 @@ void tls_init(void)
     _objc_pthread_key = tls_create(&_objc_pthread_destroyspecific);
 #endif
 }
+
+
+
+
+
+
 
 
 /***********************************************************************

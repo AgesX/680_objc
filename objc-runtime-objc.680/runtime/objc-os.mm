@@ -792,11 +792,22 @@ unmap_image_nolock(const struct mach_header *mh)
 }
 
 
+
+
+
+
+
+
+
 /***********************************************************************
+ 
+ 
 * static_init
 * Run C++ static constructor functions.
 * libc calls _objc_init() before dyld would call our static constructors, 
 * so we have to do it ourselves.
+ 
+ 
 **********************************************************************/
 static void static_init()
 {
@@ -808,6 +819,19 @@ static void static_init()
     }
 #endif
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -886,7 +910,28 @@ void _objc_init(void)
     
     
     
+    /*
+     
+     
+     
+     线程、runloop 的初始化
+    
+     
+     
+     
+    
+    
+    */
+    
+    
+    
+    
+    
     tls_init();
+    
+    
+    
+    // 当前库里面的，静态构造函数
     static_init();
     lock_init();
     exception_init();

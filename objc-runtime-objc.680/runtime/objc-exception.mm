@@ -1419,9 +1419,50 @@ static void call_alt_handlers(struct _Unwind_Context *ctx)
 **********************************************************************/
 void exception_init(void)
 {
+    
+    
+    
+    
+    
+    // 这里设置了，一个终端
+    
+    
+    
+    
     old_terminate = std::set_terminate(&_objc_terminate);
 }
 
 
 // __OBJC2__
 #endif
+
+
+
+
+// LG 有一个 crash 的公开课
+
+
+
+
+
+
+
+
+
+
+
+// crash, 是操作系统发现，应用程序存在不被允许的指令
+
+
+
+
+// crash, 是应用程序违反操作系统的规定
+
+
+// crash, 是 OS 的一个信号， signal
+
+
+
+
+
+
