@@ -221,6 +221,27 @@ void removeHeader(header_info *hi)
 * Read environment variables that affect the runtime.
 * Also print environment variable help, if requested.
 **********************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+// 环境变量，
+
+
+
+
+// 一般使用场景，即控制打印
+
+
+
+
 void environ_init(void) 
 {
     if (issetugid()) {
@@ -288,6 +309,11 @@ void environ_init(void)
 
     // Print OBJC_HELP and OBJC_PRINT_OPTIONS output.
     if (PrintHelp  ||  PrintOptions) {
+        
+        
+        // 这一行，读取环境变量
+        
+        
         if (PrintHelp) {
             _objc_inform("Objective-C runtime debugging. Set variable=YES to enable.");
             _objc_inform("OBJC_HELP: describe available environment variables");
@@ -307,6 +333,24 @@ void environ_init(void)
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************

@@ -843,14 +843,49 @@ static __attribute__((constructor))
 
 
 
+
+
+
+
+
+
+
+
+
 void _objc_init(void)
 {
+    
+    
+    // 控制，这个方法，只跑一次
+    
+    
     static bool initialized = false;
     if (initialized) return;
     initialized = true;
 
+    
     // fixme defer initialization until an objc-using image is found?
+    
+    
+    
+    
+    
+    
+    //   初始化，环境变量
+    
+    
     environ_init();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     tls_init();
     static_init();
     lock_init();
@@ -880,6 +915,17 @@ void _objc_init(void)
                                              1/*batch*/, &map_2_images);
     dyld_register_image_state_change_handler(dyld_image_state_dependents_initialized, 0/*not batch*/, &load_images);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************

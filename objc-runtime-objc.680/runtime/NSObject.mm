@@ -2025,9 +2025,32 @@ void arr_init(void)
     return NO;
 }
 
+
+
+
+
+
+
+
+// NSObject 中，  resolveInstanceMethod 方法的默认实现
+
+
 + (BOOL)resolveInstanceMethod:(SEL)sel {
     return NO;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Replaced by CF (throws an NSException)
 + (void)doesNotRecognizeSelector:(SEL)sel {
