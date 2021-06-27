@@ -406,13 +406,26 @@ static int _objc_default_exception_matcher(Class catch_cls, id exception)
 static objc_exception_matcher exception_matcher = _objc_default_exception_matcher;
 
 
+
+
+
 /***********************************************************************
 * _objc_default_uncaught_exception_handler
 * Default uncaught exception handler. Expected to be overridden by Foundation.
 **********************************************************************/
+
+
+
 static void _objc_default_uncaught_exception_handler(id exception)
 {
 }
+
+
+
+
+
+
+
 static objc_uncaught_exception_handler uncaught_handler = _objc_default_uncaught_exception_handler;
 
 
@@ -449,6 +462,28 @@ objc_setExceptionMatcher(objc_exception_matcher fn)
 * Set a handler for uncaught Objective-C exceptions. 
 * Returns the previous handler. 
 **********************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 拦截
+
+// 处理掉系统的异常方法
 objc_uncaught_exception_handler 
 objc_setUncaughtExceptionHandler(objc_uncaught_exception_handler fn)
 {
@@ -456,6 +491,31 @@ objc_setUncaughtExceptionHandler(objc_uncaught_exception_handler fn)
     uncaught_handler = fn;
     return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -673,6 +733,12 @@ static void _objc_terminate(void)
         @try {
             __cxa_rethrow();
         } @catch (id e) {
+            
+            // 扔出异常
+            
+            
+            
+            
             // It's an objc object. Call Foundation's handler, if any.
             (*uncaught_handler)((id)e);
             (*old_terminate)();
@@ -682,6 +748,24 @@ static void _objc_terminate(void)
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -1460,6 +1544,28 @@ void exception_init(void)
 
 
 // crash, 是 OS 的一个信号， signal
+
+
+
+
+// crash, 是一种异常，    就是操作系统的中断
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 拦截应用程序的 crash,
+
+// 这里给了一个句柄，即一个回调函数
 
 
 
