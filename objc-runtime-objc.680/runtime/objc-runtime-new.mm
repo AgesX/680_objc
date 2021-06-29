@@ -2559,14 +2559,14 @@ extern "C" int dyld_get_program_sdk_version();
 
 
 /*
- category被附加到类上面是在 map_2_images 的时候发生的，
- 在new-ABI的标准下，
+ category 被附加到类上面, 是在 map_2_images 的时候发生的，
+ 在 new-ABI 的标准下，
  
  
  
- _objc_init里面的调用的 map_2_images
+ _objc_init 里面的调用的 map_2_images
  
- 最终会调用objc-runtime-new.mm里面的
+ 最终会调用 objc-runtime-new.mm 里面的
  _read_images 方法
  
  */
@@ -2681,6 +2681,7 @@ void _read_images(header_info **hList, uint32_t hCount)
             
             // 读类
             // read class
+            // 重点
             Class newCls = readClass(cls, headerIsBundle, headerIsPreoptimized);
 
             if (newCls != cls  &&  newCls) {
@@ -2810,7 +2811,7 @@ void _read_images(header_info **hList, uint32_t hCount)
     
     
     
-    
+    // 处理协议
     
     // Discover protocols. Fix up protocol refs.
     for (EACH_HEADER) {
@@ -2839,13 +2840,25 @@ void _read_images(header_info **hList, uint32_t hCount)
     // Fix up @protocol references
     // Preoptimized images may have the right 
     // answer already but we don't know for sure.
+    
+    
+    
+    
     for (EACH_HEADER) {
         protocol_t **protolist = _getObjc2ProtocolRefs(hi, &count);
         for (i = 0; i < count; i++) {
+            
+            //  remap，      重映射
+            //  做，再映射
+            
+            
+            
             remapProtocolRef(&protolist[i]);
         }
     }
 
+    
+    
     ts.log("IMAGE TIMES: fix up @protocol references");
 
     // Realize non-lazy classes (for +load methods and static instances)
