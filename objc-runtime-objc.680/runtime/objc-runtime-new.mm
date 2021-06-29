@@ -1940,11 +1940,6 @@ static void reconcileInstanceVariables(Class cls, Class supercls, const class_ro
 
 
 
-// 我觉得， cls 从地址， 到了 name 名字
-
-
-
-// 我觉得， 给 cls 地址，添加了信息
 
 
 static Class realizeClass(Class cls)
@@ -2370,6 +2365,16 @@ unmap_image(const struct mach_header *mh, intptr_t vmaddr_slide)
 *
 * Locking: runtimeLock acquired by map_images or objc_readClassPair
 **********************************************************************/
+
+// cls 从地址， 到了 name 名字
+
+
+
+// 给 cls 地址，添加了信息
+
+
+
+
 Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
 {
     const char *mangledName = cls->mangledName();
@@ -2669,10 +2674,13 @@ void _read_images(header_info **hList, uint32_t hCount)
     for (EACH_HEADER) {
         bool headerIsBundle = hi->isBundle();
         bool headerIsPreoptimized = hi->isPreoptimized();
-
+        // 类表
         classref_t *classlist = _getObjc2ClassList(hi, &count);
         for (i = 0; i < count; i++) {
             Class cls = (Class)classlist[i];
+            
+            // 读类
+            // read class
             Class newCls = readClass(cls, headerIsBundle, headerIsPreoptimized);
 
             if (newCls != cls  &&  newCls) {
@@ -2791,6 +2799,7 @@ void _read_images(header_info **hList, uint32_t hCount)
                          "call sites in %s", count, hi->fname);
         }
         for (i = 0; i < count; i++) {
+            // 可忽略
             fixupMessageRef(refs+i);
         }
     }
@@ -2798,6 +2807,11 @@ void _read_images(header_info **hList, uint32_t hCount)
     ts.log("IMAGE TIMES: fix up objc_msgSend_fixup");
 #endif
 
+    
+    
+    
+    
+    
     // Discover protocols. Fix up protocol refs.
     for (EACH_HEADER) {
         extern objc_class OBJC_CLASS_$_Protocol;
@@ -2815,6 +2829,12 @@ void _read_images(header_info **hList, uint32_t hCount)
     }
 
     ts.log("IMAGE TIMES: discover protocols");
+    
+    
+    
+    
+    
+    
 
     // Fix up @protocol references
     // Preoptimized images may have the right 
@@ -2842,8 +2862,7 @@ void _read_images(header_info **hList, uint32_t hCount)
         
         for (i = 0; i < count; i++) {
             
-            // 读类
-            // read class
+            
             
             Class cls = remapClass(classlist[i]);
             if (!cls) continue;
@@ -2971,7 +2990,10 @@ void _read_images(header_info **hList, uint32_t hCount)
             {
                 
 /*
- addUnattachedCategoryForClass 只是把类和category做一个关联映射，
+ addUnattachedCategoryForClass
+ 只是把类和 category 做一个关联映射，
+ 
+ 
  
  而remethodizeClass 真正去处理添加事宜
  
