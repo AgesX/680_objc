@@ -2029,6 +2029,21 @@ static Class realizeClass(Class cls)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /***********************************************************************
 * missingWeakSuperclass
 * Return YES if some superclass of cls was weak-linked and is missing.
@@ -2674,6 +2689,8 @@ void _read_images(header_info **hList, uint32_t hCount)
     // Fix up @selector references
     
     
+    // 修复，@selector 的引用位置
+    
     
     
     
@@ -2703,11 +2720,21 @@ void _read_images(header_info **hList, uint32_t hCount)
             
             //  sel_registerNameNoLock
             
-            //  和 sels[i]
+            
+            //  和 _getObjc2SelectorRefs  的第 i 个值
+            //  sels[i]
+            
+            
             
             //  存放的位置，是不一样的
             
+            
             //  可能有相对的偏差
+            //  p/x 一下，可发现
+            
+            
+            
+            
             
             
             // 各个 sel ，所在的库，距离程序的首地址，偏差不一样
@@ -2716,6 +2743,15 @@ void _read_images(header_info **hList, uint32_t hCount)
         
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     sel_unlock();
 
     ts.log("IMAGE TIMES: fix up selector references");
@@ -2770,9 +2806,21 @@ void _read_images(header_info **hList, uint32_t hCount)
 
     // Realize non-lazy classes (for +load methods and static instances)
     for (EACH_HEADER) {
+        
+        
+        
+        // 类表
+        
         classref_t *classlist = 
             _getObjc2NonlazyClassList(hi, &count);
+        
+        
+        
         for (i = 0; i < count; i++) {
+            
+            
+            // read class
+            
             Class cls = remapClass(classlist[i]);
             if (!cls) continue;
 
@@ -2800,11 +2848,24 @@ void _read_images(header_info **hList, uint32_t hCount)
 
     // Realize newly-resolved future classes, in case CF manipulates them
     if (resolvedFutureClasses) {
+        
+        // 可忽略
+        
+        // 很少发生，不作考虑
+        
+        // 编译的时候，发生了混乱
+        // 有些类的地址，被移动了
+        // 但是没有被删除
+        
         for (i = 0; i < resolvedFutureClassCount; i++) {
             realizeClass(resolvedFutureClasses[i]);
             resolvedFutureClasses[i]->setRequiresRawIsa(false/*inherited*/);
         }
         free(resolvedFutureClasses);
+        
+        
+        // 内存中，类处理
+        // 类移动的成本，比类删除的成本大
     }    
 
     ts.log("IMAGE TIMES: realize future classes");
@@ -2848,8 +2909,8 @@ void _read_images(header_info **hList, uint32_t hCount)
 
          
          
-         1)、把category的实例方法、协议以及属性添加到类上
-         2)、把category的类方法和协议添加到类的metaclass上
+         1)、把 category 的实例方法、协议以及属性添加到类上
+         2)、把 category 的类方法和协议添加到类的 metaclass 上
          
          
          */
@@ -2991,6 +3052,12 @@ void _read_images(header_info **hList, uint32_t hCount)
 
 #undef EACH_HEADER
 }
+
+
+
+
+
+
 
 
 
