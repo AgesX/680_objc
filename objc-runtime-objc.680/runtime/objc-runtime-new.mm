@@ -2672,6 +2672,23 @@ void _read_images(header_info **hList, uint32_t hCount)
     ts.log("IMAGE TIMES: remap classes");
 
     // Fix up @selector references
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  @selector, 不是一个简单的字符串
+    
+    //  @selector, 是带地址的字符串
+    
+    
+    
+    
+    
     static size_t UnfixedSelectors;
     sel_lock();
     for (EACH_HEADER) {
@@ -2683,7 +2700,21 @@ void _read_images(header_info **hList, uint32_t hCount)
         for (i = 0; i < count; i++) {
             const char *name = sel_cname(sels[i]);
             sels[i] = sel_registerNameNoLock(name, isBundle);
+            
+            //  sel_registerNameNoLock
+            
+            //  和 sels[i]
+            
+            //  存放的位置，是不一样的
+            
+            //  可能有相对的偏差
+            
+            
+            // 各个 sel ，所在的库，距离程序的首地址，偏差不一样
         }
+        
+        
+        
     }
     sel_unlock();
 

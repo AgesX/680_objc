@@ -956,6 +956,9 @@ void _objc_init(void)
     
     
     
+    // 前面的单词，说明了，
+    // 去 dyld 这个库里面去查找
+    
     dyld_register_image_state_change_handler(dyld_image_state_bound,
                                              1/*batch*/, &map_2_images);
     dyld_register_image_state_change_handler(dyld_image_state_dependents_initialized, 0/*not batch*/, &load_images);
