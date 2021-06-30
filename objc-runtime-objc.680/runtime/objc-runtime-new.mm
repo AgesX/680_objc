@@ -1018,6 +1018,18 @@ static Class getClass(const char *name)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /***********************************************************************
 * addNamedClass
 * Adds name => cls to the named non-meta class map.
@@ -1035,6 +1047,12 @@ static void addNamedClass(Class cls, const char *name, Class replacing = nil)
         // lookup must be in the secondary meta->nonmeta table.
         addNonMetaClass(cls);
     } else {
+        
+        
+        
+        // 把类的信息，插入到表里面
+        
+        
         NXMapInsert(gdb_objc_realized_classes, name, cls);
     }
     assert(!(cls->data()->flags & RO_META));
@@ -1042,6 +1060,26 @@ static void addNamedClass(Class cls, const char *name, Class replacing = nil)
     // wrong: constructed classes are already realized when they get here
     // assert(!cls->isRealized());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************
@@ -2382,6 +2420,11 @@ unmap_image(const struct mach_header *mh, intptr_t vmaddr_slide)
 Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
 {
     
+    //  mangle,  碾压
+    
+    
+    
+    
     // 名字
     const char *mangledName = cls->mangledName();
     
@@ -2427,7 +2470,7 @@ Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
         }
         
         
-        // 回到最初的结论
+        // 回到最初的结论 （ 然而，一般不会走 Future   ）
         
         
         class_rw_t *rw = newCls->data();
@@ -2448,8 +2491,14 @@ Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
         // class list built in shared cache
         // fixme strict assert doesn't work because of duplicates
         // assert(cls == getClass(name));
+        
+        
+        // 一般，断言就是出错
         assert(getClass(mangledName));
     } else {
+        
+        // 一般，走这里
+        // 把类的信息，插入到表里面
         addNamedClass(cls, mangledName, replacing);
     }
     
@@ -2461,6 +2510,33 @@ Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
     
     return cls;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /***********************************************************************

@@ -1304,16 +1304,64 @@ struct objc_class : objc_object {
         return ISA() == (Class)this;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  mangle,  碾压
+    
+    
+    
+    
+    
+    
+    // 名字
     const char *mangledName() { 
         // fixme can't assert locks here
         assert(this);
 
+        
+        //  isRealized, 对应前面的 look up 流程
+        
+        //  没听明白
+        
+        
+        
+        //  isRealized，data()->ro 里面，才有东西
+        
+        
+        
         if (isRealized()  ||  isFuture()) {
             return data()->ro->name;
         } else {
+            
+            // 走这里，因为还没实现
+            
+            
             return ((const class_ro_t *)data())->name;
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     const char *demangledName(bool realize = false);
     const char *nameForLogging();
@@ -1345,6 +1393,11 @@ struct objc_class : objc_object {
         bits.setFastInstanceSize(newSize);
     }
 };
+
+
+
+
+
 
 
 struct swift_class_t : objc_class {
