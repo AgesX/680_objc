@@ -2763,12 +2763,14 @@ void _read_images(header_info **hList, uint32_t hCount)
         // 类表
         classref_t *classlist = _getObjc2ClassList(hi, &count);
         for (i = 0; i < count; i++) {
-            Class cls = (Class)classlist[i];
+            Class cls = (Class)classlist[i];        // cls 是地址
             
             // 读类
             // read class
             // 重点
-            Class newCls = readClass(cls, headerIsBundle, headerIsPreoptimized);
+            Class newCls = readClass(cls, headerIsBundle, headerIsPreoptimized);    //   newCls 是地址， 绑定了 name
+            
+            
 
             if (newCls != cls  &&  newCls) {
                 // Class was moved but not deleted. Currently this occurs 
