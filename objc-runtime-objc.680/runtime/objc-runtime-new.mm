@@ -2374,9 +2374,15 @@ unmap_image(const struct mach_header *mh, intptr_t vmaddr_slide)
 
 
 
+// 程序中的每一个类
+
+// 其加载，都会走这里
+
 
 Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
 {
+    
+    // 名字
     const char *mangledName = cls->mangledName();
     
     if (missingWeakSuperclass(cls)) {
@@ -2419,6 +2425,10 @@ Class readClass(Class cls, bool headerIsBundle, bool headerIsPreoptimized)
                         "because the real class is too big.", 
                         cls->nameForLogging());
         }
+        
+        
+        // 回到最初的结论
+        
         
         class_rw_t *rw = newCls->data();
         const class_ro_t *old_ro = rw->ro;
