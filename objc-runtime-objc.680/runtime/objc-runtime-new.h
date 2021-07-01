@@ -1326,14 +1326,41 @@ struct objc_class : objc_object {
         // fixme can't assert locks here
         assert(this);
 
-        
+        /*
+         
+       //  2，
+         
         //  isRealized, 对应前面的 look up 流程
         
-        //  没听明白
+        //  没听明白, hehe
+        
+        */
         
         
         
-        //  isRealized，data()->ro 里面，才有东西
+        
+        /*
+         
+        // 3
+         
+         
+        //  类的加载，
+        
+        //  初始化相关的工作
+        
+        // 添加到表结构里面去， 为了快速查找
+         
+        //  然后，算 isRealized
+        
+         // 以后的查找，就不是所谓的，初始化的逻辑了
+        
+        */
+        
+        
+        
+        
+        
+        // 1，  isRealized，data()->ro 里面，才有东西
         
         
         
