@@ -747,6 +747,12 @@ class list_array_tt {
             // 原来的老方法，转移到后面了
             
             
+            
+            
+            //  memmove， 整段平移， memory   move
+            
+            
+            
             memmove(array()->lists + addedCount, array()->lists,
                     oldCount * sizeof(array()->lists[0]));
             /*
@@ -790,8 +796,34 @@ class list_array_tt {
             if (oldList) array()->lists[addedCount] = oldList;
             memcpy(array()->lists, addedLists, 
                    addedCount * sizeof(array()->lists[0]));
+            
+            
+            //      memcpy (  { 起始地址，位置，首位元素 },  {  放什么  } , {  放多大  }  )
+            
+            
+            
+            
+            // 存在 list, 添加 newList
+            
+            
+            
+            // 开辟内存，新建 array 来存放
+            
+            
+            
+            
+            // 存放的结构为 newList + list
+            
+            
+            
+            
+            
+            
         }
     }
+    
+    
+    
     
     
     
