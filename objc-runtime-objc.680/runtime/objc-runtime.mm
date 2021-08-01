@@ -730,6 +730,16 @@ objc_getAssociatedObject(id object, const void *key)
     return objc_getAssociatedObject_non_gc(object, key);
 }
 
+
+
+
+
+
+
+
+
+
+
 void 
 objc_setAssociatedObject(id object, const void *key, id value, 
                          objc_AssociationPolicy policy) 
@@ -738,6 +748,16 @@ objc_setAssociatedObject(id object, const void *key, id value,
 }
 
 #endif
+
+
+
+
+
+
+
+
+
+
 
 
 void objc_removeAssociatedObjects(id object) 
