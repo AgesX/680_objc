@@ -20,3 +20,40 @@
 
     // 这个地方，根本没有存在递归
     imp = cache_getImp(curClass, sel);
+
+
+
+<hr>
+
+<hr>
+
+
+<hr>
+
+
+
+
+<hr>
+
+<hr>
+
+
+<hr>
+
+
+
+## 关联对象
+
+
+
+```
+void
+objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)
+{
+    
+    //  设置，关联对象
+    
+    
+    _object_set_associative_reference(object, key, value, policy);
+}
+```
