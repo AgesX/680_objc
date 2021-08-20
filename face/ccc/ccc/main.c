@@ -48,12 +48,26 @@ typedef struct Wood{
     
     //  Must use 'struct' tag to refer to type 'Node'
     struct Node * rhs;
+   // Node * sibling;
 }Forest;
 
 //  Forest,  是别名
 
 
 
+struct Flower{
+    int val;
+    
+    // 使用别名，就可以不加 struct
+    
+    
+    // 感觉 alias, 就是 struct Forest
+    
+    
+    Forest front;
+    
+    Forest * back;
+}tail;
 
 
 
