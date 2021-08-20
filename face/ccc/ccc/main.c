@@ -78,6 +78,11 @@ int main(int argc, const char * argv[]) {
     
     printf("%d  \n\n", root.val);
     
+    struct Flower rose;
+    
+    rose.val = 50;
+    
+    printf("%d  \n\n", rose.val);
     
     
     return 0;
