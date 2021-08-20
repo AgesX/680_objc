@@ -5,7 +5,23 @@
 //  Created by Jz D on 2021/8/20.
 //
 
+
+
+
+
+
+//    考虑，    编译的顺序
+
+
+
+
+
+
 #include <stdio.h>
+
+
+
+
 
 
 
@@ -34,6 +50,94 @@ struct Tree{
     //  Must use 'struct' tag to refer to type 'Node'
     // Node rhs;
 }lemon;
+
+
+
+
+
+
+
+/*
+
+struct tag {
+    member-list
+    member-list
+    member-list
+    ...
+} variable-list ;
+
+ 
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ 
+ 
+ 
+ tag 是结构体标签
+ 
+ 
+ 
+ 
+ 
+
+ member-list 是标准的变量定义，比如 int i; 或者 float f，或者其他有效的变量定义。
+ 
+ 
+ 
+ 
+ 
+
+ variable-list 结构变量，定义在结构的末尾，最后一个分号之前，您可以指定一个或多个结构变量
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ 
+
+
+//此结构体的声明包含了指向自己类型的指针
+struct NODE
+{
+    char string[100];
+    struct NODE *next_node;
+};
+
+
+*/
+
+
+
+
+
+
 
 
 
