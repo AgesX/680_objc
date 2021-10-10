@@ -37,7 +37,10 @@ typedef void(^BlockDeng)(void);
     
     // [self blockDemo];
   //  [self blockDemo_more_gg];
-    [self blockDemoTwo];
+   // [self blockDemoTwo];
+    [self demoFinal];
+    
+    
 }
 
 
@@ -197,7 +200,14 @@ typedef void(^BlockDeng)(void);
     // self -> block -> self - 通讯
     self.block = ^(ViewController *vc){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"%@",vc.name);
+            [vc.navigationController popViewControllerAnimated: YES];
+            // 配合操作，是马上返回
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                // 配合操作，是马上返回
+                
+                NSLog(@"%@",  vc.name);
+            });
         });
     };
     self.block(self);
