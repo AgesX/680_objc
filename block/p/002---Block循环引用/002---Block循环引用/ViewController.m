@@ -35,8 +35,8 @@ typedef void(^BlockDeng)(void);
     self.name = @"666   ";
 
     
-  //   [self blockDemo];
-    [self blockDemo_more_gg];
+    [self blockDemo];
+  //  [self blockDemo_more_gg];
     
 }
 
@@ -97,9 +97,23 @@ typedef void(^BlockDeng)(void);
        // NSLog(@"raw %p, weak %p", &self, &weakSelf);
         
         
-        __strong __typeof(weakSelf)strongSelf = weakSelf; //  什么时候， when,    可以释放, self  
+        __strong __typeof(weakSelf)strongSelf = weakSelf; //  什么时候， when,    可以释放, self
+        
+        // strongSelf 的释放，导致 weakSelf 的释放
+        // weakSelf 的释放，导致 self ( 控制器 ) 的释放
+        
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"%@",strongSelf.name);
+            
+            [strongSelf.navigationController popViewControllerAnimated: YES];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                // 配合操作，是马上返回
+                
+                NSLog(@"%@",strongSelf.name);
+            });
+            
         });
     };
     self.blockFirst();
