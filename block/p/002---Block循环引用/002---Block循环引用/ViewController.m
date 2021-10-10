@@ -32,15 +32,44 @@ typedef void(^BlockDeng)(void);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 循环引用
-    self.name = @"lg_cooci";
+    self.name = @"666   ";
 
     
-    [self blockDemo];
+  //   [self blockDemo];
+    [self blockDemo_more_gg];
+    
 }
 
 
 
+// 哈希表
+- (void)blockDemo_more_gg{
+    __weak typeof(self) weakSelf = self;
+    
+    // 使用 __weak 后， self 的引用计数，没有增长
+    // 相当于 self 没有被 block 捕获， 不影响 self 的生命周期
+    // self 该怎么释放，就怎么释放
+    
+    
+    NSLog(@"raw %p, weak %p", &self, &weakSelf);
+    self.blockFirst = ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.navigationController popViewControllerAnimated: YES];
+            // 配合操作，是马上返回
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                // 配合操作，是马上返回
+                
+                NSLog(@"%@",  weakSelf.name);
+            });
+        });
+    };
+    self.blockFirst();
 
+    //
+    
+    //
+}
 
 
 // 哈希表
