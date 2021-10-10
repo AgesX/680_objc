@@ -35,7 +35,7 @@ typedef void(^BlockDeng)(void);
     self.name = @"lg_cooci";
 
     
-
+    [self blockDemo];
 }
 
 
@@ -43,12 +43,17 @@ typedef void(^BlockDeng)(void);
 
 
 
-
+// 哈希表
 - (void)blockDemo{
     __weak typeof(self) weakSelf = self;
+    NSLog(@"raw %p, weak %p", &self, &weakSelf);
     self.blockFirst = ^(void){
         // 时间 - 精力
         // self 的生命周期
+        
+       // NSLog(@"raw %p, weak %p", &self, &weakSelf);
+        
+        
         __strong __typeof(weakSelf)strongSelf = weakSelf; // 可以释放 when
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSLog(@"%@",strongSelf.name);
