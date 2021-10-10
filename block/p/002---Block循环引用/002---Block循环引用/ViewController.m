@@ -130,6 +130,13 @@ typedef void(^BlockDeng)(void);
 
 - (void)blockDemoTwo{
     
+    
+    // 虽然 vc 是一个临时变量，但是 vc 被捕获进去了
+    
+    // 这个捕获，block 对 vc 进行了， 三层拷贝
+    
+    // （ 值， 指针 ）
+    
     __block ViewController *vc = self;
     self.blockSecond = ^(void){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -145,6 +152,11 @@ typedef void(^BlockDeng)(void);
             });
         });
     };
+    
+    
+    // 建立循环引用
+    // vc -> self -> blockSecond -> vc
+    
     self.blockSecond();
     
     
@@ -167,7 +179,19 @@ typedef void(^BlockDeng)(void);
     // weakSelf 是否会对引用计数处理? 留给自己分析 1
     // 循环引用的解决方式
     // weak-strong-dance 强弱共舞
+    
     // 中介者模式 自动 手动
+    
+    
+    // 加了一层，间接
+    
+    
+    
+    
+    
+    
+    
+    
     // block -> vc - block 三层block
     // proxy 预习
     // self -> block -> self - 通讯
