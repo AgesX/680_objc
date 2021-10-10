@@ -83,13 +83,21 @@ typedef void(^BlockDeng)(void);
     
     NSLog(@"raw %p, weak %p", &self, &weakSelf);
     self.blockFirst = ^(void){
-        // 时间 - 精力
-        // self 的生命周期
+        
+        
+        // 异步操作
+        
+        // 消耗:    时间 - 精力
+        
+        
+        
+        
+        // 需要保证:   self 的生命周期
         
        // NSLog(@"raw %p, weak %p", &self, &weakSelf);
         
         
-        __strong __typeof(weakSelf)strongSelf = weakSelf; // 可以释放 when
+        __strong __typeof(weakSelf)strongSelf = weakSelf; //  什么时候， when,    可以释放, self  
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSLog(@"%@",strongSelf.name);
         });
@@ -98,8 +106,12 @@ typedef void(^BlockDeng)(void);
 
     //
     
+    
     //
 }
+
+
+
 
 
 - (void)blockDemoTwo{
