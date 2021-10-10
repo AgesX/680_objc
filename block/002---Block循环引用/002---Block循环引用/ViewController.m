@@ -9,8 +9,19 @@
 #import "ViewController.h"
 
 typedef void(^KCBlock)(ViewController *);
+
+typedef void(^BlockDeng)(void);
+
+
 @interface ViewController ()
 @property (nonatomic, copy) KCBlock block;
+
+@property (nonatomic, copy) BlockDeng blockFirst;
+
+
+@property (nonatomic, copy) BlockDeng blockSecond;
+
+
 @property (nonatomic, copy) NSString *name;
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -23,6 +34,52 @@ typedef void(^KCBlock)(ViewController *);
     // 循环引用
     self.name = @"lg_cooci";
 
+    
+
+}
+
+
+
+
+
+
+
+- (void)blockDemo{
+    __weak typeof(self) weakSelf = self;
+    self.blockFirst = ^(void){
+        // 时间 - 精力
+        // self 的生命周期
+        __strong __typeof(weakSelf)strongSelf = weakSelf; // 可以释放 when
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"%@",strongSelf.name);
+        });
+    };
+    self.blockFirst();
+
+    //
+    
+    //
+    
+    
+    __block ViewController *vc = self;
+    self.blockSecond = ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"%@",vc.name);
+            vc = nil;
+        });
+    };
+    self.blockSecond();
+}
+
+- (void)dealloc{
+    NSLog(@"dealloc 来了");
+}
+
+
+
+
+
+- (void)demoFinal{
     // self -> block -> vc = nil -> self
     // 弱引用表 是同一个指针地址
     // weakSelf 是否会对引用计数处理? 留给自己分析 1
@@ -39,34 +96,8 @@ typedef void(^KCBlock)(ViewController *);
     };
     self.block(self);
     
-    // block 
-
+    // block
 }
 
-//- (void)blockDemo{
-//    __weak typeof(self) weakSelf = self;
-//    self.block = ^(void){
-//        // 时间 - 精力
-//        // self 的生命周期
-//        __strong __typeof(weakSelf)strongSelf = weakSelf; // 可以释放 when
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            NSLog(@"%@",strongSelf.name);
-//        });
-//    };
-//    self.block();
-//
-//    __block ViewController *vc = self;
-//    self.block = ^(void){
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            NSLog(@"%@",vc.name);
-//            vc = nil;
-//        });
-//    };
-//    self.block();
-//}
-
-- (void)dealloc{
-    NSLog(@"dealloc 来了");
-}
 
 @end
