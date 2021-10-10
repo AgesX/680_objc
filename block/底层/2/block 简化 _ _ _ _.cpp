@@ -39,7 +39,14 @@ struct __main_block_impl_0 {
 
 
 static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-  __Block_byref_a_0 *a = __cself->a; // bound by ref
+
+
+
+
+        // 指针拷贝
+
+
+        __Block_byref_a_0 *a = __cself->a; // bound by ref
 
         (a->__forwarding->a) += 100;
         printf(" 6 6  6  %d \n", (a->__forwarding->a));
