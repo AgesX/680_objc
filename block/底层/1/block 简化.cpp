@@ -3,7 +3,12 @@
 struct __main_block_impl_0 {
   struct __block_impl impl;
   struct __main_block_desc_0* Desc;
-  int a;
+
+  
+  int a;    //  编译时，就自动生成了， 相应的变量
+
+
+
   __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _a, int flags=0) : a(_a) {
     impl.isa = &_NSConcreteStackBlock;
     impl.Flags = flags;
@@ -16,6 +21,10 @@ struct __main_block_impl_0 {
 
 
 static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+
+
+        //  拷贝
+
         int a = __cself->a; // bound by copy
 
         printf(" 6 6  6  %d \n", a);
@@ -31,6 +40,12 @@ static struct __main_block_desc_0 {
 } __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
 int main(){
     int a = 10;
+
+
+
+    //  这里， block ， 是  __main_block_impl_0
+
+
     void(*block)(void) = ((void (*)())&__main_block_impl_0((void *)__main_block_func_0, &__main_block_desc_0_DATA, a));
     ((void (*)(__block_impl *))((__block_impl *)block)->FuncPtr)((__block_impl *)block);
     return 0;
