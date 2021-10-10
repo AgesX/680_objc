@@ -1,15 +1,13 @@
 #include <stdio.h>
 
 int main(){
-    int a = 10;
-    
-    // 没有     __block
+    __block int a = 10;
     
     
-    // 就是     只读
     
     
     void(^block)(void) = ^{
+        a += 100;
         printf(" 6 6  6  %d \n", a);
     };
     block();

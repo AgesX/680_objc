@@ -23,7 +23,7 @@ struct __main_block_impl_0 {
 static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
 
 
-        //  拷贝
+        //  值拷贝
 
         int a = __cself->a; // bound by copy
 
