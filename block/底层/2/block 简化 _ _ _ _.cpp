@@ -45,6 +45,11 @@ int main(){
     //  结构体，初始化
 
 
+
+    // 第一个参数， isa 为 0 ，
+    // 因为没有当前的 isa 地址
+
+
     __attribute__((__blocks__(byref))) __Block_byref_a_0 a = {
                                                               (void*)0,
                                                               (__Block_byref_a_0 *)&a,

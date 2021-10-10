@@ -3,6 +3,12 @@
 int main(){
     __block int a = 10;
     
+    // 添加了 __block，
+    
+    // int a,
+    
+    // 就会编译成，结构体
+    
     
     
     
