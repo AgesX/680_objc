@@ -46,6 +46,12 @@ typedef void(^BlockDeng)(void);
 // 哈希表
 - (void)blockDemo{
     __weak typeof(self) weakSelf = self;
+    
+    // 使用 __weak 后， self 的引用计数，没有增长
+    // 相当于 self 没有被 block 捕获， 不影响 self 的生命周期
+    // self 该怎么释放，就怎么释放
+    
+    
     NSLog(@"raw %p, weak %p", &self, &weakSelf);
     self.blockFirst = ^(void){
         // 时间 - 精力
