@@ -59,7 +59,10 @@ typedef void(^BlockDeng)(void);
     //
     
     //
-    
+}
+
+
+- (void)blockDemoTwo{
     
     __block ViewController *vc = self;
     self.blockSecond = ^(void){
@@ -69,7 +72,12 @@ typedef void(^BlockDeng)(void);
         });
     };
     self.blockSecond();
+    
+    
 }
+
+
+
 
 - (void)dealloc{
     NSLog(@"dealloc 来了");
